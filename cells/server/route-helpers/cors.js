@@ -1,5 +1,8 @@
 var cors = require('cors')
-var corsMiddleware = cors({
-  exposedHeaders: ['page', 'pages', 'total', 'limit'],
-})
+var corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, true)
+  }
+}
+var corsMiddleware = cors(corsOptions)
 module.exports = corsMiddleware
