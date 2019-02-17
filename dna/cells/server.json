@@ -1,0 +1,64 @@
+{
+  "groups": [
+    "server"
+  ],
+  "cwd": "cells/server",
+  "build":
+  {
+    "organic-api-routes":
+    {
+      "source": "organic-express-routes",
+      "reactOn": [
+        "ExpressServer"
+      ],
+      "pattern": "/**/*.js",
+      "path": "routes",
+      "helpers": "route-helpers",
+      "emitReady": "ApiRoutesReady"
+    },
+    "organic-express-server":
+    {
+      "source": "organic-express-server",
+      "forceConnectionsDestroyOnClose": true,
+      "port": "@cell-ports.server",
+      "emitReady": "ExpressServer",
+      "initScript": "init-express-app.js",
+      "interceptors": [
+        "interceptors/packagejson"
+      ],
+      "responders": [
+        "responders/default"
+      ],
+      "views": false,
+      "uploadsDir": false,
+      "cookie_secret": false,
+      "mountRespondersOn": [
+        "ExpressServer",
+        "ApiRoutesReady"
+      ]
+    },
+    "organic-express-static":
+    {
+      "source": "organic-express-static",
+      "reactOn": "ExpressServer",
+      "mount":
+      {
+        "/client": [
+        {
+          "path": "client/"
+        }]
+      },
+      "st":
+      {},
+      "log": true
+    },
+    "organic-mongoose": {
+      "source": "organic-mongoose",
+      "database": "@mongodb"
+    },
+    "chron": {
+      "source": "./chron",
+      "initScript": "init.js"
+    }
+  }
+}

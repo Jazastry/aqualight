@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "name": "aqualight",
+  "port": "27017",
+  "options": {
+    "useNewUrlParser": true
+  }
+}
