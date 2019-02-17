@@ -49,6 +49,7 @@ class Util {
         }
       }
       xmlHttp.open('GET', `${this.apiUrl}/schedule`, true)
+      xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*')
       xmlHttp.send(null)
     })
   }
