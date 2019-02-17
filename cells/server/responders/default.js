@@ -1,4 +1,6 @@
+const cors = require('cors')
 module.exports = function (app, dna) {
+  app.options('*', cors())
   // default responder
   app.use(function (req, res, next) {
     if (typeof res.code === 'number') {
