@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var path = require('path')
 var CookieParser = require('cookie-parser')
 var methodOverride = require('method-override')
+var cors = require('cors')
 
 module.exports = function ExpressApp (plasma, dna, next) {
   var app = express()
@@ -27,6 +28,7 @@ module.exports = function ExpressApp (plasma, dna, next) {
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
+  app.use(cors())
 
   if (dna.cookie_secret) {
     var cookieParser = CookieParser(dna.cookie_secret)
