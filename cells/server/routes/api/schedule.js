@@ -4,7 +4,6 @@ const Schedule = $require('models/schedule')
 module.exports = function (plasma, dna, helpers) {
   const scheduleLib = $require('lib/schedule')(plasma)
   return {
-    'OPTIONS': helpers.cors,
     'GET': [
       helpers.cors,
       async (req, res, next) => {
@@ -12,6 +11,7 @@ module.exports = function (plasma, dna, helpers) {
         res.body = schedule
       }
     ],
+    'OPTIONS': helpers.cors,
     'POST': [
       helpers.cors,
       async (req, res) => {
