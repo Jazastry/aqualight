@@ -11,7 +11,10 @@ module.exports = function (plasma, dna, helpers) {
         res.body = schedule
       }
     ],
-    'OPTIONS': helpers.cors,
+    'OPTIONS': (req, res, next) => {
+      console.log('IN CORS')
+      return helpers.cors(req, res, next)
+    },
     'POST': [
       helpers.cors,
       async (req, res) => {
