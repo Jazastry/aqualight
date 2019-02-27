@@ -29,7 +29,11 @@
       "responders": [
         "responders/default"
       ],
-      "views": false,
+      "views": "client",
+      "viewEngine": {
+        "ext": "ejs",
+        "name": "ejs"
+      },
       "uploadsDir": false,
       "cookie_secret": false,
       "mountRespondersOn": [
@@ -37,20 +41,38 @@
         "ApiRoutesReady"
       ]
     },
+    "organic-static-pages": {
+      "source": "organic-express-staticpages",
+      "reactOn": [
+        "ExpressServer"
+      ],
+      "pattern": "/**/*.ejs",
+      "path": "client/pages",
+      "emitReady": "StaticPagesReady",
+      "log": true
+    },
     "organic-express-static":
     {
       "source": "organic-express-static",
       "reactOn": "ExpressServer",
       "mount":
       {
-        "/client": [
-        {
-          "path": "client/"
+        "/app": [{
+          "path": "client",
+          "url": "app"
         }]
       },
-      "st":
-      {},
+      "st":{"index": "index.html"},
       "log": true
+    },
+    "organic-site-routes": {
+      "source": "organic-express-routes",
+      "reactOn": [
+        "ExpressServer"
+      ],
+      "pattern": "/**/*.js",
+      "path": "client/pages",
+      "emitReady": "SiteRoutesReady"
     },
     "organic-mongoose": {
       "source": "organic-mongoose",

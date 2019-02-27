@@ -17,14 +17,13 @@ module.exports = (plasma) => {
           let {red, white, blue} = colorPowers
           // `i2cset -y -f 2 0x20 0x03 ${red} ${white} ${blue} i`
           let command = `i2cset -y -f 2 0x20 0x03 ${red} ${white} ${blue} i`
-          console.log('CHRON : ', command)
           exec(command, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`)
               return
             }
-            console.log(`stdout: ${stdout}`)
-            console.log(`stderr: ${stderr}`)
+            console.log(`exec stdout: ${stdout}`)
+            console.log(`exec stderr: ${stderr}`)
           })
         }
       }, (err) => {
@@ -49,10 +48,8 @@ module.exports = (plasma) => {
 
   const createSchedule = async (schedules) => {
     for (let schedule of schedules) {
-      console.log('schedule', schedule.color)
       await createScheduleForColor(schedule)
     }
-    console.log(':::::: AFTER CREATE')
   }
 
   const destroySchedule = () => {

@@ -27,14 +27,16 @@ module.exports = {
 
     plasma.on('cron-destroy-all-tasks', (c, cb) => {
       for (let task of tasks) {
-        console.log('DESTROY task')
         task.destroy()
       }
+      tasks = []
       cb()
     })
   },
-  restoreSavedSchedule: async () => {
+  restoreSavedSchedule: async (plasma) => {
+    const scheduleLib = $require('lib/schedule')(plasma)
     let existingSchedules = await Schedule.find({})
-    console.log('existingSchedules', existingSchedules)
+    await scheduleLib.createSchedule(existingSchedules)
+    await scheduleLib.startSchedule()
   }
 }

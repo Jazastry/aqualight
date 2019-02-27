@@ -4,17 +4,15 @@ const Schedule = $require('models/schedule')
 module.exports = function (plasma, dna, helpers) {
   const scheduleLib = $require('lib/schedule')(plasma)
   return {
+    'OPTIONS': helpers.cors,
     'GET': [
       helpers.cors,
-      async (req, res, next) => {
+      async (req, res) => {
         let schedule = await Schedule.find({})
         res.body = schedule
+        res.status(200)
       }
     ],
-    'OPTIONS': (req, res, next) => {
-      console.log('IN CORS')
-      return helpers.cors(req, res, next)
-    },
     'POST': [
       helpers.cors,
       async (req, res) => {
@@ -30,14 +28,22 @@ module.exports = function (plasma, dna, helpers) {
           resBody = existingGraph
         }
         res.body = resBody
-        console.log('API ::::  A')
-        await scheduleLib.destroySchedule({color})
+        await scheduleLib.destroySchedule()
         let allSchedules = await Schedule.find({})
         await scheduleLib.createSchedule(allSchedules)
         await scheduleLib.startSchedule()
-        console.log('API ::::  B')
         res.status(200)
       }],
+    'POST /start': [
+      helpers.cors,
+      async (req, res) => {
+        await scheduleLib.destroySchedule()
+        let allSchedules = await Schedule.find({})
+        await scheduleLib.createSchedule(allSchedules)
+        await scheduleLib.startSchedule()
+        res.status(200)
+      }
+    ],
     'PUT': helpers.forbidden,
     'DELETE': helpers.forbidden
   }

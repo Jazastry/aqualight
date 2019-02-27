@@ -14,8 +14,6 @@ const init = async () => {
     if (existingSchedule && existingSchedule.graphPoints) {
       graphPoints = existingSchedule.graphPoints
     }
-    console.log('graphPoints', graphPoints)
-    console.log('color', color)
     const graph = new Graph({
       color: color,
       name: color,

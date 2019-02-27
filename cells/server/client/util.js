@@ -1,6 +1,6 @@
 class Util {
   constructor() {
-    this.apiUrl = 'http://localhost:1337/api'
+    this.apiUrl = `http://${_localIp}:1337/api`
     this.dayInMills = moment.duration(24, 'hours').valueOf()
     this.startOfDay = moment().startOf('day')
   }
@@ -26,7 +26,6 @@ class Util {
       let powerPercent = this.getPercent(graph.height, r.y)
       let power = Math.round(this.percentage(255, powerPercent))
       let hourString = hour.format('H:m:s')
-      console.log('hourString', hourString)
       return { power, hourString }
     })
   }
@@ -41,16 +40,16 @@ class Util {
 
   getSchedule (theUrl) {
     return new Promise((resolve, reject) => {
-      let xmlHttp = new XMLHttpRequest()
-      xmlHttp.onreadystatechange = () => {
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-          console.log('xmlHttp.responseText', xmlHttp.responseText)
-          resolve(JSON.parse(xmlHttp.responseText))
+      let xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resolve(JSON.parse(xhr.responseText))
         }
       }
-      xmlHttp.open('GET', `${this.apiUrl}/schedule`, true)
-      // xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*')
-      xmlHttp.send(null)
+      xhr.open('GET', `${this.apiUrl}/schedule`, true)
+      xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.send(null)
     })
   }
 }

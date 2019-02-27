@@ -1,6 +1,8 @@
 const cors = require('cors')
+const ip = require('ip')
 module.exports = function (app, dna) {
   app.options('*', cors())
+  app.locals.localIp = ip.address()
   // default responder
   app.use(function (req, res, next) {
     if (typeof res.code === 'number') {
@@ -21,6 +23,7 @@ module.exports = function (app, dna) {
     }
     next() // forward to default not found handler
   })
+
   // default not found handler
   app.use(function (req, res, next) {
     res.status(404)

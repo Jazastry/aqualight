@@ -21,6 +21,7 @@ module.exports = class OrganicMongoose {
   }
 
   init (c, next) { // {second, minute, hour, action}
+    init.restoreSavedSchedule(this.plasma)
     init.setEventListeners(this.plasma, this.tasks)
 
     next && next()
