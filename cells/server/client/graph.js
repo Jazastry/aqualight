@@ -9,13 +9,13 @@ class Graph {
     this.pointsRadius = 10
     this.accurancyStep = 1 / this.accurancy
 
-    this.p0 = graphPoints ? graphPoints[0] : {x: 0, y: 0}
+    this.p0 = graphPoints ? graphPoints[0] : {x: 0, y: 0, isMain: true}
     this.p1 = graphPoints ? graphPoints[1] : {x: (this.width / 4) * 1, y: this.pointsRadius}
     this.p2 = graphPoints ? graphPoints[2] : {x: (this.width / 4) * 1, y: this.height - this.pointsRadius}
     this.p3 = graphPoints ? graphPoints[3] : {x: this.width / 2, y: this.height}
     this.p4 = graphPoints ? graphPoints[4] : {x: (this.width / 4) * 3, y: this.height - this.pointsRadius}
     this.p5 = graphPoints ? graphPoints[5] : {x: (this.width / 4) * 3, y: this.pointsRadius}
-    this.p6 = graphPoints ? graphPoints[6] : {x: this.width, y: 0}
+    this.p6 = graphPoints ? graphPoints[6] : {x: this.width, y: 0, isMain: true}
 
     this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6]
     this.mousePos = null
@@ -53,13 +53,13 @@ class Graph {
   }
 
   bezier (t, p0, p1, p2, p3) {
-    let cX = 3 * (p1.x - p0.x),
-      bX = 3 * (p2.x - p1.x) - cX,
-      aX = p3.x - p0.x - cX - bX
+    let cX = 3 * (p1.x - p0.x)
+    let bX = 3 * (p2.x - p1.x) - cX
+    let aX = p3.x - p0.x - cX - bX
 
-    let cY = 3 * (p1.y - p0.y),
-      bY = 3 * (p2.y - p1.y) - cY,
-      aY = p3.y - p0.y - cY - bY
+    let cY = 3 * (p1.y - p0.y)
+    let bY = 3 * (p2.y - p1.y) - cY
+    let aY = p3.y - p0.y - cY - bY
 
     let x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x
     let y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y
@@ -109,7 +109,9 @@ class Graph {
       this.points.forEach(p => {
         if (p.move) {
           p.x = this.mousePos.x
-          p.y = this.mousePos.y
+	  if (!p.isMain) {
+	    p.y = this.mousePos.y
+	  }
           this.draw()
         }
       })

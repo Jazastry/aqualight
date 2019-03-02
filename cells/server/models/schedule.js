@@ -9,7 +9,8 @@ const struct = {
   graphPoints: [{
     _id: false,
     x: { type: Number, required: true },
-    y: { type: Number, required: true }
+    y: { type: Number, required: true },
+    isMain: {type: Boolean, default: false}
   }],
   graphValueObjects: [{
     _id: false,
