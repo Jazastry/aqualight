@@ -5,6 +5,24 @@ const defaultColors = [
   { color: 'blue' }
 ]
 
+let loadingOverlay = document.createElement('div')
+document.body.appendChild(loadingOverlay)
+loadingOverlay.style.position = 'absolute'
+loadingOverlay.style.zIndex = '-2'
+loadingOverlay.style.width = '100vw'
+loadingOverlay.style.height = '100vh'
+loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0)'
+
+let setLoadingOverlay = (loading) => {
+  if (loading) {
+    loadingOverlay.style.zIndex = '100'
+    loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0.4)'
+  } else {
+    loadingOverlay.style.zIndex = '-2'
+    loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0)'
+  }
+}
+
 const init = async () => {
   const schedule = await util.getSchedule()
 
@@ -18,10 +36,12 @@ const init = async () => {
       color: color,
       name: color,
       graphPoints: graphPoints,
-      onSave: () => {
+      onSave: async () => {
         const graphValueObjects = util.convertGraphRsults(graph)
         const graphPoints = graph.getGraphPoints()
-        util.saveSchedule({ graphPoints, graphValueObjects, color })
+        setLoadingOverlay(true)
+        await util.saveSchedule({ graphPoints, graphValueObjects, color })
+        setLoadingOverlay(false)
       }
     })
   })

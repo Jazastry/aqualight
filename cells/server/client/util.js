@@ -31,11 +31,18 @@ class Util {
   }
 
   saveSchedule (data) {
-    const dataStr = JSON.stringify(data)
-    var xhr = new XMLHttpRequest()
-    xhr.open('POST', `${this.apiUrl}/schedule`, true)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(dataStr)
+    return new Promise((resolve, reject) => {
+      const dataStr = JSON.stringify(data)
+      var xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resolve()
+        }
+      }
+      xhr.open('POST', `${this.apiUrl}/schedule`, true)
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.send(dataStr)
+    })
   }
 
   getSchedule (theUrl) {
