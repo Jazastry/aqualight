@@ -4,7 +4,7 @@ class Graph {
     this.name = name
 
     this.accurancy = 256
-    this.width = 600
+    this.width = 1000
     this.height = 300
     this.pointsRadius = 10
     this.accurancyStep = 1 / this.accurancy
