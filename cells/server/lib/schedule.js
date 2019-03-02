@@ -22,6 +22,7 @@ module.exports = (plasma) => {
               console.error(`exec error: ${error}`)
               return
             }
+            console.log(command)
             console.log(`exec stdout: ${stdout}`)
             console.log(`exec stderr: ${stderr}`)
           })
