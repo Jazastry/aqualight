@@ -1,5 +1,5 @@
 class Graph {
-  constructor ({color, name, onSave, graphPoints}) {
+  constructor({ color, name, onSave, graphPoints }) {
     this.color = color
     this.name = name
 
@@ -9,13 +9,13 @@ class Graph {
     this.pointsRadius = 10
     this.accurancyStep = 1 / this.accurancy
 
-    this.p0 = graphPoints ? graphPoints[0] : {x: 0, y: 0, isMain: true}
-    this.p1 = graphPoints ? graphPoints[1] : {x: (this.width / 4) * 1, y: this.pointsRadius}
-    this.p2 = graphPoints ? graphPoints[2] : {x: (this.width / 4) * 1, y: this.height - this.pointsRadius}
-    this.p3 = graphPoints ? graphPoints[3] : {x: this.width / 2, y: this.height}
-    this.p4 = graphPoints ? graphPoints[4] : {x: (this.width / 4) * 3, y: this.height - this.pointsRadius}
-    this.p5 = graphPoints ? graphPoints[5] : {x: (this.width / 4) * 3, y: this.pointsRadius}
-    this.p6 = graphPoints ? graphPoints[6] : {x: this.width, y: 0, isMain: true}
+    this.p0 = graphPoints ? graphPoints[0] : { x: 0, y: 0, isMain: true }
+    this.p1 = graphPoints ? graphPoints[1] : { x: (this.width / 4) * 1, y: this.pointsRadius }
+    this.p2 = graphPoints ? graphPoints[2] : { x: (this.width / 4) * 1, y: this.height - this.pointsRadius }
+    this.p3 = graphPoints ? graphPoints[3] : { x: this.width / 2, y: this.height }
+    this.p4 = graphPoints ? graphPoints[4] : { x: (this.width / 4) * 3, y: this.height - this.pointsRadius }
+    this.p5 = graphPoints ? graphPoints[5] : { x: (this.width / 4) * 3, y: this.pointsRadius }
+    this.p6 = graphPoints ? graphPoints[6] : { x: this.width, y: 0, isMain: true }
 
     this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6]
     this.mousePos = null
@@ -34,7 +34,7 @@ class Graph {
     this.init()
   }
 
-  createPoint (point, i) {
+  createPoint(point, i) {
     this.ctx.beginPath()
     this.ctx.arc(point.x, point.y, this.pointsRadius, 0, 2 * Math.PI)
     this.ctx.stroke()
@@ -44,15 +44,15 @@ class Graph {
     this.ctx.fillText('p' + i, point.x + 8, point.y + 15)
   }
 
-  getGraphPoints () {
+  getGraphPoints() {
     return this.points
   }
 
-  createHandlePoints (points) {
+  createHandlePoints(points) {
     points.forEach((p, i) => this.createPoint(p, i))
   }
 
-  bezier (t, p0, p1, p2, p3) {
+  bezier(t, p0, p1, p2, p3) {
     let cX = 3 * (p1.x - p0.x)
     let bX = 3 * (p2.x - p1.x) - cX
     let aX = p3.x - p0.x - cX - bX
@@ -64,10 +64,10 @@ class Graph {
     let x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x
     let y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y
 
-    return {x: x, y: y}
+    return { x: x, y: y }
   }
 
-  draw () {
+  draw() {
     this.ctx.clearRect(0, 0, this.width, this.height)
     this.drawCoordinateNet()
 
@@ -88,7 +88,7 @@ class Graph {
     this.ctx.stroke()
   }
 
-  getMousePos (canvas, evt) {
+  getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect()
     return {
       x: evt.clientX - rect.left,
@@ -96,22 +96,22 @@ class Graph {
     }
   }
 
-  mouseIsInpoint (point) {
+  mouseIsInpoint(point) {
     var dx = Math.abs(Math.abs(point.x) - Math.abs(this.mousePos.x))
     var dy = Math.abs(Math.abs(point.y) - Math.abs(this.mousePos.y))
     var distance_clicked = Math.sqrt((dx * dx) + (dy * dy))
     return distance_clicked < this.pointsRadius
   }
 
-  addEventListeners (canvas) {
+  addEventListeners(canvas) {
     canvas.addEventListener('mousemove', (evt) => {
       this.mousePos = this.getMousePos(canvas, evt)
       this.points.forEach(p => {
         if (p.move) {
           p.x = this.mousePos.x
-	  if (!p.isMain) {
-	    p.y = this.mousePos.y
-	  }
+          if (!p.isMain) {
+            p.y = this.mousePos.y
+          }
           this.draw()
         }
       })
@@ -136,7 +136,7 @@ class Graph {
     this.saveButton.addEventListener('click', this.onSave, false)
   }
 
-  drawCoordinateNet () {
+  drawCoordinateNet() {
     let boxWidth = this.width / 24
     let boxHeight = this.height / 10
 
@@ -160,7 +160,7 @@ class Graph {
     }
   }
 
-  drawOverlay () {
+  drawOverlay() {
     let width = this.width + (this.pointsRadius * 2)
     let height = this.height + (this.pointsRadius * 2)
     this.ctxOverlay.clearRect(0, 0, width, height)
@@ -180,7 +180,7 @@ class Graph {
     })
   }
 
-  init () {
+  init() {
     document.body.appendChild(this.wrapper)
     this.wrapper.style.position = 'relative'
 

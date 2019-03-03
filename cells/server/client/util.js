@@ -24,7 +24,7 @@ class Util {
       let timePercent = this.getPercent(graph.width, r.x)
       let hour = this.getDifFormStartOfTheDay(timePercent)
       let powerPercent = this.getPercent(graph.height, r.y)
-      let power = Math.round(this.percentage(255, powerPercent))
+      let power = i === graph.resultPoints.length - 1 ? 0 : Math.round(this.percentage(255, powerPercent))
       let hourString = hour.format('H:m:s')
       return { power, hourString }
     })
