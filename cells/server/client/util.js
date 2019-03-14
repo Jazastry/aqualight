@@ -1,21 +1,21 @@
 class Util {
-  constructor() {
+  constructor () {
     this.apiUrl = `http://${_localIp}:1337/api`
     this.dayInMills = moment.duration(24, 'hours').valueOf()
     this.startOfDay = moment().startOf('day')
   }
 
-  percentage(whole, perc) {
+  percentage (whole, perc) {
     return (whole / 100) * perc
   }
 
-  getDifFormStartOfTheDay(percent) {
+  getDifFormStartOfTheDay (percent) {
     let interval = this.percentage(this.dayInMills, percent)
     let timePoint = this.startOfDay.clone().add(moment.duration(interval, 'ms'))
     return timePoint
   }
 
-  getPercent(whole, val) {
+  getPercent (whole, val) {
     return (val / whole) * 100
   }
 
