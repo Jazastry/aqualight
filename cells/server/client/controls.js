@@ -16,8 +16,8 @@ class Controls {
     document.body.appendChild(this.wrapper)
     this.wrapper.style.position = 'relative'
     this.wrapper.style.textAlign = 'center'
-    this.wrapper.style.paddingTop = '20px'
-    this.wrapper.style.paddingBottom = '20px'
+    this.wrapper.style.paddingTop = '100px'
+    this.wrapper.style.paddingBottom = '100px'
 
     this.wrapper.appendChild(this.powerButton)
     this.powerButton.innerHTML = 'Power'

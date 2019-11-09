@@ -192,7 +192,8 @@ class Graph {
 
     this.saveButton.innerHTML = 'Save'
     this.saveButton.style.position = 'absolute'
-    this.saveButton.style.left = this.width + 35 + 'px'
+    this.saveButton.style.left = this.width + 80 + 'px'
+    this.saveButton.style.fontSize = '1.5rem'
     this.wrapper.appendChild(this.saveButton)
 
     this.ctx.canvas.width = this.width
