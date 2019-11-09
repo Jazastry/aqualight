@@ -189,10 +189,12 @@ class Graph {
   init () {
     document.body.appendChild(this.wrapper)
     this.wrapper.style.position = 'relative'
+    this.wrapper.style.height = '30rem'
 
     this.saveButton.innerHTML = 'Save'
     this.saveButton.style.position = 'absolute'
-    this.saveButton.style.left = this.width + 80 + 'px'
+    this.saveButton.style.left = (this.width - 80) + 'px'
+    this.saveButton.style.top = '-4rem'
     this.saveButton.style.fontSize = '1.5rem'
     this.wrapper.appendChild(this.saveButton)
 
