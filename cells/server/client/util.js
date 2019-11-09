@@ -3,6 +3,7 @@ class Util {
     this.apiUrl = `http://${_localIp}:1337/api`
     this.dayInMills = moment.duration(24, 'hours').valueOf()
     this.startOfDay = moment().startOf('day')
+    this.togglePower = this.togglePower.bind(this)
   }
 
   percentage (whole, perc) {
@@ -57,6 +58,21 @@ class Util {
       xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
       xhr.setRequestHeader('Content-Type', 'application/json')
       xhr.send(null)
+    })
+  }
+
+  togglePower () {
+    console.log('this', JSON.stringify(this, null, 2))
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resolve()
+        }
+      }
+      xhr.open('POST', `${this.apiUrl}/power`, true)
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.send('')
     })
   }
 }

@@ -5,7 +5,8 @@
     "node": "8.12.0"
   },
   "scripts": {
-    "setup": "npm install && angel repo cells -- npm install"
+    "setup": "npm install && angel repo cells -- npm install",
+    "develop": "angel repo cells -- npm run develop"
   },
   "dependencies": {
     "organic-angel": "^0.3.2",

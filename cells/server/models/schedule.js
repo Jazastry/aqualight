@@ -16,7 +16,9 @@ const struct = {
     _id: false,
     power: { type: Number, required: true },
     hourString: { type: String, required: true }
-  }]
+  }],
+  isOn: { type: Boolean, default: true },
+  fullPower: { type: Boolean, default: false }
 }
 
 const schema = new mongoose.Schema(struct)

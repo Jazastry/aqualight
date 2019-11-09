@@ -1,4 +1,5 @@
 const util = new Util()
+new Controls({togglePower: util.togglePower})
 const defaultColors = [
   { color: 'white' },
   { color: 'red' },
@@ -26,6 +27,7 @@ let setLoadingOverlay = (loading) => {
 const init = async () => {
   const schedule = await util.getSchedule()
 
+  // initializr Graph
   defaultColors.forEach(({ color }) => {
     let graphPoints
     let existingSchedule = schedule && schedule.find(s => s.color === color)

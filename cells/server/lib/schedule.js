@@ -69,9 +69,19 @@ module.exports = (plasma) => {
     })
   }
 
+  const stopSchedule = () => {
+    return new Promise((resolve, reject) => {
+      plasma.emit('cron-stop-all-tasks', () => {
+        console.log('IN stop schedule')
+        resolve()
+      })
+    })
+  }
+
   return {
     createSchedule,
     destroySchedule,
-    startSchedule
+    startSchedule,
+    stopSchedule
   }
 }
