@@ -1,7 +1,8 @@
 class Graph {
-  constructor ({ color, name, onSave, graphPoints }) {
+  constructor ({ bg, color, name, onSave, graphPoints }) {
     this.color = color
     this.name = name
+    this.bg = bg
 
     this.accurancy = 256
     this.width = 1000
@@ -37,6 +38,7 @@ class Graph {
   createPoint (point, i) {
     this.ctx.beginPath()
     this.ctx.arc(point.x, point.y, this.pointsRadius, 0, 2 * Math.PI)
+    this.ctx.strokeStyle = this.color
     this.ctx.stroke()
     // add point text
     this.ctx.font = '15px Arial'
@@ -85,6 +87,7 @@ class Graph {
       this.resultPoints.push(p)
       this.ctx.lineTo(p.x, p.y)
     }
+    this.ctx.strokeStyle = this.color
     this.ctx.stroke()
   }
 
@@ -147,6 +150,7 @@ class Graph {
       this.yLinePoints.push(y)
       this.ctx.moveTo(0, y)
       this.ctx.lineTo(this.width, i * boxHeight)
+      this.ctx.strokeStyle = this.color
       this.ctx.stroke()
     }
     // draw vertical lines
@@ -156,6 +160,7 @@ class Graph {
       this.xLinePoints.push(x)
       this.ctx.moveTo(x, 0)
       this.ctx.lineTo(x, this.height)
+      this.ctx.strokeStyle = this.color
       this.ctx.stroke()
     }
   }
@@ -172,6 +177,7 @@ class Graph {
     this.ctxOverlay.canvas.style.top = 0 + 'px'
     this.ctxOverlay.canvas.style.left = 0 + 'px'
     this.ctxOverlay.font = '15px Arial'
+    this.ctxOverlay.fillStyle = this.color
     this.yLinePoints.forEach((p, i) => {
       this.ctxOverlay.fillText(i * 10, 5, p + 5)
     })
@@ -192,8 +198,8 @@ class Graph {
     this.ctx.canvas.width = this.width
     this.ctx.canvas.height = this.height
     this.wrapper.appendChild(this.ctx.canvas)
-    this.ctx.canvas.style.border = '1px solid #000'
-    this.ctx.canvas.style.backgroundColor = this.color
+    this.ctx.canvas.style.border = `1px solid ${this.color}`
+    this.ctx.canvas.style.backgroundColor = this.bg
     this.ctx.canvas.style.marginBottom = '30px'
     this.ctx.canvas.style.marginLeft = '30px'
 

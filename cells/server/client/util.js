@@ -3,7 +3,18 @@ class Util {
     this.apiUrl = `http://${_localIp}:1337/api`
     this.dayInMills = moment.duration(24, 'hours').valueOf()
     this.startOfDay = moment().startOf('day')
+
+    this.loadingOverlay = document.createElement('div')
+    document.body.appendChild(this.loadingOverlay)
+    this.loadingOverlay.style.position = 'absolute'
+    this.loadingOverlay.style.zIndex = '-2'
+    this.loadingOverlay.style.width = '100%'
+    this.loadingOverlay.style.height = '100%'
+    this.loadingOverlay.style.top = '0px'
+    this.loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0)'
+
     this.togglePower = this.togglePower.bind(this)
+    this.setLoadingOverlay = this.setLoadingOverlay.bind(this)
   }
 
   percentage (whole, perc) {
@@ -62,11 +73,12 @@ class Util {
   }
 
   togglePower () {
-    console.log('this', JSON.stringify(this, null, 2))
+    this.setLoadingOverlay(true)
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest()
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
+          this.setLoadingOverlay(false)
           resolve()
         }
       }
@@ -74,5 +86,15 @@ class Util {
       xhr.setRequestHeader('Content-Type', 'application/json')
       xhr.send('')
     })
+  }
+
+  setLoadingOverlay (loading) {
+    if (loading) {
+      this.loadingOverlay.style.zIndex = '100'
+      this.loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0.4)'
+    } else {
+      this.loadingOverlay.style.zIndex = '-2'
+      this.loadingOverlay.style.backgroundColor = 'rgba(0,0,0,0)'
+    }
   }
 }
