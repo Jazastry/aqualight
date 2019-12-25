@@ -7,8 +7,8 @@
   "scripts": {
     "setup": "npm install && angel repo cells -- npm install",
     "develop": "angel repo cells -- npm run develop",
-    "start": "forever start -s -c \"angel repo cells -- npm run start\" ./",
-    "stop": "forever stopall && pkill -f aqualight"
+    "start": "angel repo cells -- npm run start",
+    "start-pm2": "pm2 start npm --name \"aqualight\" -- start"
   },
   "dependencies": {
     "organic-angel": "^0.3.2",

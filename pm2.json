@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "aqualight",
+            "cwd": "./",
+            "script": "npm",
+            "args": "start",
+            "out_file": "/dev/null",
+            "error_file": "/dev/null"
+        }
+    ]
+}
