@@ -7,7 +7,7 @@
   "scripts": {
     "setup": "npm install && angel repo cells -- npm install",
     "develop": "angel repo cells -- npm run develop",
-    "start": "forever start -c \"angel repo cells -- npm run start\" ./",
+    "start": "forever start -s -c \"angel repo cells -- npm run start\" ./",
     "stop": "forever stopall && pkill -f aqualight"
   },
   "dependencies": {
