@@ -28,6 +28,16 @@ module.exports = function (plasma, dna, helpers) {
         res.body = resBody
         res.status(200)
       }],
+    'GET': async (req, res) => {
+      let resBody = []
+      let existingGraph = await Schedule.find({})
+      for (let graph of existingGraph) {
+        let {color, fullPower} = graph
+        resBody.push({color, fullPower})
+      }
+      res.body = resBody
+      res.status(200)
+    },
     'PUT': helpers.forbidden,
     'DELETE': helpers.forbidden
   }
