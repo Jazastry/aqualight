@@ -11,12 +11,12 @@
     "start-pm2": "pm2 start npm --name \"aqualight\" -- start"
   },
   "dependencies": {
-    "organic-angel": "^0.3.2",
-    "organic-dna-loader": "^1.5.1",
+    "organic-angel": "^0.6.2",
+    "organic-dna-loader": "^1.8.1",
     "organic-dna-cells-info": "^1.0.0",
     "angelscripts-help": "^0.2.0",
     "angelscripts-monorepo": "^2.0.0",
-    "angelabilities-package-scripts": "^0.1.0"
+    "angelabilities-package-scripts": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^4.18.2",
